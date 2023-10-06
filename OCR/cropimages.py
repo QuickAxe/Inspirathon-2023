@@ -14,8 +14,7 @@ def auto_canny(image, sigma=0.33):
 
 class CropImages(object):
     def __init__(self, file_path) -> None:
-        with cv2.imread(file_path) as f:
-            self.image = f
+        self.image = cv2.imread(file_path)
 
     def cropped_images():
         gray = cv2.cvtColor(hiero, cv2.COLOR_BGR2GRAY)
@@ -45,3 +44,4 @@ if __name__ == "__main__":
 
     crop = CropImages(file_path)
     l = crop.cropped_images()
+    cr2.imshow("cropped", l[0])
