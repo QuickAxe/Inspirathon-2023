@@ -16,8 +16,8 @@ class CropImages(object):
     def __init__(self, file_path) -> None:
         self.image = cv2.imread(file_path)
 
-    def cropped_images():
-        gray = cv2.cvtColor(hiero, cv2.COLOR_BGR2GRAY)
+    def cropped_images(self):
+        gray = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
         blurred = cv2.GaussianBlur(gray, (3, 3), 0)
         edged = auto_canny(blurred)
         ret, thresh = cv2.threshold(edged, 127, 255, 0)
@@ -28,7 +28,7 @@ class CropImages(object):
         filtered_contours = []
         for contour in contours:
             x, y, w, h = cv2.boundingRect(contour)
-            if w >= 10 and h >= 10:
+            if w >= 10 and h >= 10 and w<=70 and h<=70:
                 filtered_contours.append((x, y, w, h))
 
         filtered_contours = sorted(filtered_contours,
@@ -36,7 +36,10 @@ class CropImages(object):
 
         filtered_contours = sorted(filtered_contours,
                                    key=lambda contour: contour[1])
-        return ((self.image[coord[0]:coord[1], coord[2]:coord[4]], coord) for coord in filtered_contours)
+        return [(self.image[
+            coord[1]:coord[1] + coord[3],
+            coord[0]:coord[0] + coord[2]], coord)
+            for coord in filtered_contours]
 
 
 if __name__ == "__main__":
@@ -44,4 +47,9 @@ if __name__ == "__main__":
 
     crop = CropImages(file_path)
     l = crop.cropped_images()
-    cr2.imshow("cropped", l[0])
+    # print(l[0][1])
+    for i, image in enumerate(l[:10]):
+        cv2.imshow(f"cropped{i}", image[0])
+
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
