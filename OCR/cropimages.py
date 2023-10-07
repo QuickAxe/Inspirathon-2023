@@ -68,7 +68,7 @@ if __name__ == "__main__":
         cv2.imshow(f"cropped{i}", imag[0])
 
         #  send paths here
-        # convert(path)
+        convert(imag[0])
 
     cv2.waitKey(0)
     cv2.destroyAllWindows()

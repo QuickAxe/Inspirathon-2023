@@ -201,13 +201,13 @@ def convert(img):
     # img = image.load_img('../data/glyphdataset/Dataset/Automated/Preprocessed/3/030026_S29.png', target_size = (img_height, img_width))
     # img = image.load_img('../data/glyphdataset/Dataset/Automated/Preprocessed/3/030030_S29.png', target_size = (img_height, img_width))
     # img = image.load_img(
-    #     "/Users/manselmartins/Downloads/test.png",
+    #     path,
     #     target_size=(img_height, img_width),
     # )
     # img = image.load_img('../data/glyphdataset/Dataset/Automated/Preprocessed/3/030024_E34.png', target_size = (img_height, img_width))
     # img = image.load_img('../data/glyphdataset/Dataset/Automated/Preprocessed/3/030147_E34.png', target_size = (img_height, img_width))
     # img = image.load_img('../data/glyphdataset/Dataset/Automated/Preprocessed/3/030443_E34.png', target_size = (img_height, img_width))
-    img = image.img_to_array(img)
+    # img = image.img_to_array(img)
     img = np.expand_dims(img, axis=0)
 
     # gardiner = model.predict(img)
