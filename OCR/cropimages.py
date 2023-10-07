@@ -1,6 +1,10 @@
 import cv2
 import numpy as np
 
+from Compute import *
+
+import keras
+
 
 def auto_canny(image, sigma=0.33):
     # compute the median of the single channel pixel intensities
@@ -22,41 +26,55 @@ class CropImages(object):
         edged = auto_canny(blurred)
         ret, thresh = cv2.threshold(edged, 127, 255, 0)
         img_dilate = cv2.dilate(
-            thresh, cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3)))
+            thresh, cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+        )
         contours, _ = cv2.findContours(
-            img_dilate, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            img_dilate, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
+        )
         filtered_contours = []
         for contour in contours:
             x, y, w, h = cv2.boundingRect(contour)
             if w >= 10 and h >= 10 and w <= 70 and h <= 70:
+            if w >= 10 and h >= 10 and w <= 70 and h <= 70:
                 filtered_contours.append((x, y, w, h))
 
-        filtered_contours = sorted(filtered_contours,
-                                   key=lambda contour: contour[2])
+        filtered_contours = sorted(filtered_contours, key=lambda contour: contour[2])
 
-        filtered_contours = sorted(filtered_contours,
-                                   key=lambda contour: contour[1])
-        # ret=[]
+        filtered_contours = sorted(filtered_contours, key=lambda contour: contour[1])
+ # ret=[]
         # {}
         # for coord in filtered_contours:
         #     path = './temp/data'
-        cv2.resize(cropped, (50, 75), interpolation=cv2.INTER_LINEAR)
+        
 
-        return [(self.image[
-            coord[1]:coord[1] + coord[3],
-            coord[0]:coord[0] + coord[2]], coord)
-            for coord in filtered_contours]
+        return [
+            (cv2.resize(self.image[
+       
+                    coord[1] : coord[1] + coord[3], coord[0] : coord[0] + coord[2]
+                ], (50, 75), interpolation=cv2.INTER_LINEAR)
+                ,
+                coord,
+            )
+            for coord in filtered_contours
+        ]
 
 
 if __name__ == "__main__":
-    file_path = "/data/Coding/INSPIRATHON2023/100-12-_jpg.rf.fb1b9b584b6e16e1909c3e0829273685.jpg"
+    file_path = "/data/Coding/INSPIRATHON2023/Dataset/Pictures/egyptianTexts5.jpg"
 
     crop = CropImages(file_path)
     l = crop.cropped_images()
     print(l)
     # print(l[0][1])
-    for i, image in enumerate(l[:10]):
-        cv2.imshow(f"cropped{i}", image[0])
+
+    img_height = 75
+    img_width = 50
+
+    for i, imag in enumerate(l[:10]):
+        cv2.imshow(f"cropped{i}", imag[0])
+
+        #  send paths here
+        convert(imag[0])
 
     cv2.waitKey(0)
     cv2.destroyAllWindows()
