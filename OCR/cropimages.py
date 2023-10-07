@@ -34,25 +34,24 @@ class CropImages(object):
         filtered_contours = []
         for contour in contours:
             x, y, w, h = cv2.boundingRect(contour)
-            if w >= 10 and h >= 10 and w <= 70 and h <= 70:
-            if w >= 10 and h >= 10 and w <= 70 and h <= 70:
+            if w >= 10 and h >= 10:
                 filtered_contours.append((x, y, w, h))
 
-        filtered_contours = sorted(filtered_contours, key=lambda contour: contour[2])
+        filtered_contours = sorted(
+            filtered_contours, key=lambda contour: contour[2])
 
-        filtered_contours = sorted(filtered_contours, key=lambda contour: contour[1])
+        filtered_contours = sorted(
+            filtered_contours, key=lambda contour: contour[1])
  # ret=[]
         # {}
         # for coord in filtered_contours:
         #     path = './temp/data'
-        
 
         return [
             (cv2.resize(self.image[
-       
-                    coord[1] : coord[1] + coord[3], coord[0] : coord[0] + coord[2]
-                ], (50, 75), interpolation=cv2.INTER_LINEAR)
-                ,
+                coord[1]: coord[1] + coord[3],
+                coord[0]: coord[0] + coord[2]
+            ], (50, 75), interpolation=cv2.INTER_LINEAR),
                 coord,
             )
             for coord in filtered_contours
