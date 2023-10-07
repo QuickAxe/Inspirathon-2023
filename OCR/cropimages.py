@@ -28,7 +28,7 @@ class CropImages(object):
         filtered_contours = []
         for contour in contours:
             x, y, w, h = cv2.boundingRect(contour)
-            if w >= 10 and h >= 10 and w<=70 and h<=70:
+            if w >= 10 and h >= 10 and w <= 70 and h <= 70:
                 filtered_contours.append((x, y, w, h))
 
         filtered_contours = sorted(filtered_contours,
@@ -36,6 +36,12 @@ class CropImages(object):
 
         filtered_contours = sorted(filtered_contours,
                                    key=lambda contour: contour[1])
+        # ret=[]
+        # {}
+        # for coord in filtered_contours:
+        #     path = './temp/data'
+        cv2.resize(cropped, (50, 75), interpolation=cv2.INTER_LINEAR)
+
         return [(self.image[
             coord[1]:coord[1] + coord[3],
             coord[0]:coord[0] + coord[2]], coord)
@@ -43,10 +49,11 @@ class CropImages(object):
 
 
 if __name__ == "__main__":
-    file_path = "/data/Coding/INSPIRATHON2023/Dataset/Pictures/egyptianTexts5.jpg"
+    file_path = "/data/Coding/INSPIRATHON2023/100-12-_jpg.rf.fb1b9b584b6e16e1909c3e0829273685.jpg"
 
     crop = CropImages(file_path)
     l = crop.cropped_images()
+    print(l)
     # print(l[0][1])
     for i, image in enumerate(l[:10]):
         cv2.imshow(f"cropped{i}", image[0])
