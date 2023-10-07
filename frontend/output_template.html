@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="output_style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="nav">
+        <div>Ancient Text Detection</div>
+        <div>P-slayers</div>
+    </div>
+    <div id="output">
+        <div id="image_section">
+            <span style="text-decoration: underline; font-size: 30px;">
+                Processes Image
+            </span>
+            <img alt="Please Retry" id="output_image" src="{{ image_url }}">
+        </div>
+        <div id="text_section">
+            <span style="text-decoration: underline;">
+                Detected Text
+            </span>
+            <div id="output_text"> 
+                {{ detected_text }}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

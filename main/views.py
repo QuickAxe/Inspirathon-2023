@@ -1,5 +1,5 @@
-from rest_framework.response import Response 
-from rest_framework.decorators import api_view 
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 from main.models import *
 # from api.serializer import *
 # Create your views here.
@@ -12,7 +12,15 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from main.models import Image
 # from main.serializers import ImageSerializer  # If you have a serializer for Image
+from django.http import HttpResponse
+from django.shortcuts import render
 
+
+def getResult(request):
+    return render(request, './../frontend/index.html')
+
+
+@api_view(['GET'])
 @api_view(['GET'])
 def result(request, image_id):
     try:
@@ -20,12 +28,13 @@ def result(request, image_id):
     except Image.DoesNotExist:
         return Response({'message': 'Image not found'}, status=404)
 
-    # You can serialize the image data if needed
-    # serializer = ImageSerializer(image)
+    context = {
+        'image_url': image.url,
+        'detected_text': image.text
+    }
 
-    return Response({'url': image.url, 'text': image.text
+    return render(request, 'result_template.html', context)
 
-})  # Return image data
 
 @api_view(['POST'])
 def upload(request):
@@ -33,13 +42,15 @@ def upload(request):
     uploaded_file = request.FILES.get('image')
     if uploaded_file:
         # Save the uploaded file to a temporary location
-        file_name = default_storage.save(os.path.join(settings.MEDIA_ROOT, 'temp', uploaded_file.name), ContentFile(uploaded_file.read()))
+        file_name = default_storage.save(os.path.join(
+            settings.MEDIA_ROOT, 'temp', uploaded_file.name), ContentFile(uploaded_file.read()))
 
         # Generate the URL for the uploaded file
         file_url = os.path.join(settings.MEDIA_URL, 'temp', uploaded_file.name)
 
         # Create a new Image object and save it to the database
-        image = Image(url=file_url, user=request.user, text='')  # Assuming request.user is authenticated
+        # Assuming request.user is authenticated
+        image = Image(url=file_url, user=request.user, text='')
         image.save()
 
         return Response({'message': 'Image uploaded successfully!', 'url': file_url})
