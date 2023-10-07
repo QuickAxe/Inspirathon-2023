@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pslayers | Text Detection</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<!-- bg-[url(assets/backgound.svg)]  -->
+<!-- bg-gradient-to-br from-[#FFD100] to-[#978019] -->
+<body>
+    
+    <div id = "full_div">
+
+        <!-- The header -->
+        <div id="nav">
+            <div>Ancient Text Detection</div>
+            <div>P-slayers</div>
+        </div>
+        
+        <!-- the form to input the image -->
+        <div id="form_div">
+            <form id="actual_form" action="output.html">
+
+            <!-- selected image show -->
+                <div id="image_display">
+                    <img alt="Select and Image"  id = "show_image" src = "assets/Picture1-.png">
+                </div>                
+                <div id="input_field">
+                    <input type="file" accept="image/png, image/jpg, image/jpeg" id="input_image">
+                    <label id="input_image_label" for="input_image">
+                            Import Image
+                    </label>
+                    <input type="submit" id="submit_button">
+                    <!-- <input type="file" accept="image/*" /> -->
+                </div>
+            </form>
+        </div>
+        <script>
+            let showimage_ = document.getElementById("show_image");
+            let input_image = document.getElementById("input_image");
+            console.log(input_image)
+            input_image.onchange = function(){
+                showimage_.src = URL.createObjectURL(input_image.files[0]);
+            }
+        </script>
+        <div id="info_box">
+            <div id="info_box_title">Hieroglyphs</div>
+                <div id="info">
+                    <p>
+                        <span class="header">Definition:</span><br>  
+                        Hieroglyphs are a system of writing that employs a combination of logographic and alphabetic elements. They consist of a vast array of pictorial symbols, each representing specific words, sounds, or concepts. Hieroglyphs could be read from left to right or right to left, and in some cases, they could even be written vertically. This writing system was highly versatile, allowing scribes to convey complex ideas and record historical events.
+                    </p>
+                    <p>
+                        <span class="header">History:</span><br>
+                        <ul class="list-inside">
+                            <li>Origin: The history of hieroglyphs dates back to the Predynastic Period (c. 4000-3100 BCE) in ancient Egypt. The earliest hieroglyphs were simple pictures of objects, animals, and people.</li>
+                            <li>Development: Over time, hieroglyphs evolved into a more sophisticated script with a broader range of symbols and concepts. They were used not only for religious and monumental inscriptions but also for everyday communication, such as administrative records and personal letters.
+                                <li>Rosetta Stone: One of the most critical discoveries related to hieroglyphs was the Rosetta Stone, found in 1799. This stone inscription contained three scripts: hieroglyphs, Demotic (a cursive script used for administrative purposes), and Greek. This discovery allowed scholars to decipher hieroglyphs by comparing them to the known Greek text, paving the way for a better understanding of ancient Egyptian culture and history.</li>
+                                <li>Decipherment: The decipherment of hieroglyphs was primarily attributed to the French scholar Jean-François Champollion in the early 19th century. His work on the Rosetta Stone and his understanding of the phonetic elements of hieroglyphs helped unlock the secrets of this ancient writing system.</li>
+                                <li>Use and Decline: Hieroglyphs continued to be used in Egypt for thousands of years, but their use gradually declined following the spread of Christianity and the eventual adoption of the Greek and then Arabic scripts. By the 4th century CE, hieroglyphs had fallen out of common use.</li>
+                                <li>Legacy: Despite their decline as a writing system, hieroglyphs left a lasting legacy. They provided crucial insights into the history, culture, and religion of ancient Egypt. Today, they continue to capture the imagination of people worldwide, serving as an iconic representation of this ancient civilization.</li>
+                            </ul>
+                    </p>
+                    <div class="all_symbols_button">
+
+                        <a href="all_symbols.html">
+                            All Symbols
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>     
+</body>
+</html>
