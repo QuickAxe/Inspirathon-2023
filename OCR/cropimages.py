@@ -37,21 +37,23 @@ class CropImages(object):
             if w >= 10 and h >= 10:
                 filtered_contours.append((x, y, w, h))
 
-        filtered_contours = sorted(
-            filtered_contours, key=lambda contour: contour[2])
+        filtered_contours = sorted(filtered_contours, key=lambda contour: contour[2])
 
-        filtered_contours = sorted(
-            filtered_contours, key=lambda contour: contour[1])
- # ret=[]
+        filtered_contours = sorted(filtered_contours, key=lambda contour: contour[1])
+        # ret=[]
         # {}
         # for coord in filtered_contours:
         #     path = './temp/data'
 
         return [
-            (cv2.resize(self.image[
-                coord[1]: coord[1] + coord[3],
-                coord[0]: coord[0] + coord[2]
-            ], (50, 75), interpolation=cv2.INTER_LINEAR),
+            (
+                cv2.resize(
+                    self.image[
+                        coord[1] : coord[1] + coord[3], coord[0] : coord[0] + coord[2]
+                    ],
+                    (50, 75),
+                    interpolation=cv2.INTER_LINEAR,
+                ),
                 coord,
             )
             for coord in filtered_contours
@@ -70,10 +72,10 @@ if __name__ == "__main__":
     img_width = 50
 
     for i, imag in enumerate(l[:10]):
-        cv2.imshow(f"cropped{i}", imag[0])
+        # cv2.imshow(f"cropped{i}", imag[0])
 
         #  send paths here
         convert(imag[0])
 
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
