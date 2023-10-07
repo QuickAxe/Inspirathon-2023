@@ -59,7 +59,7 @@ class CropImages(object):
 
 
 if __name__ == "__main__":
-    file_path = "/data/Coding/INSPIRATHON2023/Dataset/Pictures/egyptianTexts5.jpg"
+    file_path = "./OCR/test1.jpg"
 
     crop = CropImages(file_path)
     l = crop.cropped_images()
